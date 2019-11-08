@@ -44,11 +44,14 @@ public class CheckliteSolution {
                 Offer offer = offerMap.get(sku.getIetm());
                 if (offer.getFreeItem() != null && skuMap.containsKey(offer.getFreeItem())) {
                     SKU freeItem = skuMap.get(offer.getFreeItem());//F
-                    Integer freeItems = calculateFreeItems(sku, offer);
-                    int finalQuantityToPay = freeItem.getQty() - freeItems;
-                    int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
-                    finalItemVsQty.put(freeItem.getIetm(), new SKU(freeItem.getIetm(), qty));
                     selfFree = freeItem.getIetm().equals(sku.getIetm());
+                    Integer freeItems = calculateFreeItems(sku, offer);
+
+                    if (needToReduceQuantityForSelfFree(selfFree, sku.getQty(), offer)) {
+                        int finalQuantityToPay = freeItem.getQty() - freeItems;
+                        int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
+                        finalItemVsQty.put(freeItem.getIetm(), new SKU(freeItem.getIetm(), qty));
+                    }
                 }
             }
             if (!selfFree) {
@@ -56,6 +59,10 @@ public class CheckliteSolution {
             }
         }
         return newArrayList(finalItemVsQty.values());
+    }
+
+    private boolean needToReduceQuantityForSelfFree(boolean selfFree, Integer qty, Offer offer) {
+        return !selfFree || qty > offer.getSingleOfferQty();
     }
 
     private Integer calculateFreeItems(SKU sku, Offer offer) {
@@ -105,6 +112,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
