@@ -13,7 +13,12 @@ public class SKU {
         return ietm;
     }
 
+    public void incrementQuantityBy(Integer qty) {
+        this.qty+= qty;
+    }
+
     public Integer getQty() {
         return qty;
     }
 }
+
