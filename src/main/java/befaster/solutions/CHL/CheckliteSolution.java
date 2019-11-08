@@ -46,19 +46,13 @@ public class CheckliteSolution {
         while (matcher.find()) {
             chunks.add(matcher.group());
         }
-
-//        long quantityCount = chunks.stream().filter(c -> c.matches("[0-9]")).count();
-//
-//        if (chunks.size() != quantityCount * 2) {
-//            throw new InvalidInputException("Invalid Input - " + chunks);
-//        }
         return chunks;
     }
 
     public Integer checklite(String input) {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
-        if (Strings.isNullOrEmpty(input)) {
+        if (input.matches("")) {
             return 0;
         }
         System.out.println(input);
@@ -101,8 +95,3 @@ public class CheckliteSolution {
                 .build();
     }
 }
-
-
-
-
-
