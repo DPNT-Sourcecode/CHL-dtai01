@@ -72,9 +72,21 @@ public class CheckliteSolutionTest {
     }
 
     @Test
-    public void checkliteForOnlyCharInput() {
+    public void checkliteForOnlyCharInputMultipleSKU() {
         Integer price = solution.checklite("AA");
         Assert.assertEquals(new Integer(100), price);
+    }
+
+    @Test
+    public void checkliteForOnlyCharInputMultipleSKU2() {
+        Integer price = solution.checklite("AAA");
+        Assert.assertEquals(new Integer(130), price);
+    }
+
+    @Test
+    public void checkliteForOnlyCharInputMultipleSKU3() {
+        Integer price = solution.checklite("AAAA");
+        Assert.assertEquals(new Integer(180), price);
     }
 
     @Test
