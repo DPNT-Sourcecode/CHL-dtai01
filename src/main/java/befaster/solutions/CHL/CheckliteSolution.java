@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Sets.newHashSet;
 
 public class CheckliteSolution {
 
@@ -46,7 +45,7 @@ public class CheckliteSolution {
                     SKU freeItem = skuMap.get(offer.getFreeItem());//F
                     selfFree = freeItem.getIetm().equals(sku.getIetm());
                     Integer freeItems = calculateFreeItems(sku, offer);
-                    int finalQuantityToPay = freeItem.getQty();
+                    int finalQuantityToPay;
 
                     if (selfFree) {
                         int remainingQty = sku.getQty();
@@ -69,10 +68,6 @@ public class CheckliteSolution {
             }
         }
         return newArrayList(finalItemVsQty.values());
-    }
-
-    private boolean needToReduceQuantityForSelfFree(boolean selfFree, Integer qty, Offer offer) {
-        return !selfFree || qty > offer.getSingleOfferQty();
     }
 
     private Integer calculateFreeItems(SKU sku, Offer offer) {
@@ -122,3 +117,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
