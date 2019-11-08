@@ -27,17 +27,7 @@ public class CheckliteSolution {
 
         List<SKU> skuList = parse(skus);
         return skuList.stream().mapToInt(sku -> {
-            int price = 0;
-            if (offerMap.containsKey(sku.getIetm())) {
-                Offer offerForItem = offerMap.get(sku.getIetm());
-                if (offerForItem.getQty() <= sku.getQty()) {
-                    price += offerForItem.getPrice() * (sku.getQty() / offerForItem.getQty());
-                    price += offerForItem.getPrice() * (sku.getQty() % offerForItem.getQty());
-                }
-            } else if (prices.containsKey(sku.getIetm())) {
-                price = sku.getQty() * prices.get(sku.getIetm());
-            }
-            return price;
+            return calculatePriceForOneSKU(offerMap, sku);
         }).sum();
 
 //        if (offerMap.containsKey(item)) {
@@ -52,6 +42,20 @@ public class CheckliteSolution {
 //        return price;
     }
 
+    private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku) {
+        int price = 0;
+        if (offerMap.containsKey(sku.getIetm())) {
+            Offer offerForItem = offerMap.get(sku.getIetm());
+            if (offerForItem.getQty() <= sku.getQty()) {
+                price += offerForItem.getPrice() * (sku.getQty() / offerForItem.getQty());
+                price += offerForItem.getPrice() * (sku.getQty() % offerForItem.getQty());
+            }
+        } else if (prices.containsKey(sku.getIetm())) {
+            price = sku.getQty() * prices.get(sku.getIetm());
+        }
+        return price;
+    }
+
     private ImmutableMap<String, Offer> initOfferMap() {
         Offer o1 = new Offer(3, "A", 130);
         Offer o2 = new Offer(2, "B", 45);
@@ -62,4 +66,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
