@@ -17,18 +17,25 @@ public class CheckliteSolutionTest {
     }
 
     @Test
+    public void checkliteOfferAndNormalPriceSingleItem() {
+
+        Integer price = solution.checklite("5A");
+        Assert.assertEquals(new Integer(230),price);
+    }
+
+    @Test
     public void checkliteForOfferPrice() {
 
         Integer price = solution.checklite("3A");
         Assert.assertEquals(new Integer(130),price);
     }
 
-//    @Test
-//    public void checkliteMultipleProductForNormalPrice() {
-//
-//        Integer price = solution.checklite("2A1B");
-//        Assert.assertEquals(new Integer(130),price);
-//    }
+    @Test
+    public void checkliteMultipleProductForNormalPrice() {
+
+        Integer price = solution.checklite("2A1B");
+        Assert.assertEquals(new Integer(130),price);
+    }
 
 
 }
