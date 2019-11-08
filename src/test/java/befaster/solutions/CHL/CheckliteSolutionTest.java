@@ -9,6 +9,15 @@ public class CheckliteSolutionTest {
 
     CheckliteSolution solution = new CheckliteSolution();
 
+
+
+    @Test
+    public void checkliteEmptyInput() {
+
+        Integer price = solution.checklite("");
+        Assert.assertEquals(new Integer(0),price);
+    }
+
     @Test
     public void checkliteSimpleSingleItem() {
 
@@ -61,3 +70,4 @@ public class CheckliteSolutionTest {
 
 
 }
+

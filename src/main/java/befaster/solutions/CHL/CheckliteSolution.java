@@ -37,11 +37,15 @@ public class CheckliteSolution {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
         List<SKU> skuList = parse(skus);
+        if(skuList.isEmpty()){
+            return 0;
+        }
         return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
     }
 
     private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku) {
         int price = 0;
+
         if (offerMap.containsKey(sku.getIetm())) {
             Offer offerForItem = offerMap.get(sku.getIetm());
             if (offerForItem.getQty() <= sku.getQty()) {
@@ -70,6 +74,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
