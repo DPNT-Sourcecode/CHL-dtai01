@@ -66,9 +66,15 @@ public class CheckliteSolutionTest {
     }
 
     @Test
-    public void checkliteForIlleagalInput() {
+    public void checkliteForInputWithoutQuantity() {
         Integer price = solution.checklite("A");
         Assert.assertEquals(new Integer(50), price);
+    }
+
+    @Test
+    public void checkliteForOnlyCharInput() {
+        Integer price = solution.checklite("AA");
+        Assert.assertEquals(new Integer(100), price);
     }
 
     @Test
@@ -97,4 +103,3 @@ public class CheckliteSolutionTest {
 
 
 }
-
