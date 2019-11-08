@@ -21,28 +21,40 @@ public class CheckliteSolution {
 
     private List<SKU> parse(String input) {
         List<SKU> skus = newArrayList();
+        List<String> chunks = separateValidChunsfItemNameAndQantity(input);
+        for (int i = 0; i <= chunks.size() - 1; i++) {
+            skus.add(new SKU(chunks.get(i + 1), Integer.parseInt(chunks.get(i))));
+            i = i + 1;
+        }
+        return skus;
+    }
+
+    private List<String> separateValidChunsfItemNameAndQantity(String input) {
         Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[A-Z]+");
         List<String> chunks = newArrayList();
         Matcher matcher = VALID_PATTERN.matcher(input);
         while (matcher.find()) {
-            chunks.add( matcher.group() );
+            chunks.add(matcher.group());
         }
-        for (int i = 0;i<=chunks.size()-1;i++) {
-            skus.add(new SKU(chunks.get(i+1), Integer.parseInt(chunks.get(i))));
-            i = i+1;
+        if (chunks.size() % 2 > 0) {
+            throw new InvalidInputException("Invalid Input - " + chunks);
         }
-        return skus;
+        return chunks;
     }
 
     public Integer checklite(String input) {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
-        if(Strings.isNullOrEmpty(input)){
+        if (Strings.isNullOrEmpty(input)) {
             return 0;
         }
         System.out.println(input);
-        List<SKU> skuList = parse(input);
-        return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
+        try {
+            List<SKU> skuList = parse(input);
+            return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
+        } catch (InvalidInputException e) {
+            return -1;
+        }
     }
 
     private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku) {
@@ -55,11 +67,11 @@ public class CheckliteSolution {
                 price += prices.get(sku.getIetm()) * (sku.getQty() % offerForItem.getQty());
             }
         }
-        if (price==0 && prices.containsKey(sku.getIetm()) ) {
+        if (price == 0 && prices.containsKey(sku.getIetm())) {
             price = sku.getQty() * prices.get(sku.getIetm());
         }
 
-        if(price==0 && !prices.containsKey(sku.getIetm())){
+        if (price == 0 && !prices.containsKey(sku.getIetm())) {
             return -1;
         }
 
@@ -76,3 +88,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
