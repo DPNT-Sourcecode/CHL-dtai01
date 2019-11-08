@@ -30,9 +30,6 @@ public class CheckliteSolution {
             skus.add(new SKU(chunks.get(i+1), Integer.parseInt(chunks.get(i))));
             i = i+1;
         }
-//        String item = input.replaceAll("^[0-9]", "").trim();
-//        Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
-//        return newArrayList(new SKU(item,quantity));
         return skus;
     }
 

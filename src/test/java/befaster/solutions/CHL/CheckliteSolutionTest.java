@@ -37,5 +37,27 @@ public class CheckliteSolutionTest {
         Assert.assertEquals(new Integer(130),price);
     }
 
+    @Test
+    public void checkliteMultipleProductForNormalAndOfferPrice() {
+
+        Integer price = solution.checklite("5A1B");
+        Assert.assertEquals(new Integer(260),price);
+    }
+    @Test
+    public void checkliteInvalidSKU() {
+
+        Integer price = solution.checklite("dfsd1A");
+        Assert.assertEquals(new Integer(50),price);
+    }
+
+    @Test
+    public void checkliteNonPresentItem() {
+
+        Integer price = solution.checklite("78G");
+        Assert.assertEquals(new Integer(50),price);
+    }
+
+
+
 
 }
