@@ -191,5 +191,11 @@ public class CheckliteSolutionTest {
         Integer price = solution.checklite("FFFFFF");
         Assert.assertEquals(new Integer(40), price);
     }
+    //ch_4
+    @Test
+    public void checkliteForAllAtoZ() {
+        Integer price = solution.checklite("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        Assert.assertEquals(new Integer(965), price);
+    }
 
 }
