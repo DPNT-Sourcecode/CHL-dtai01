@@ -83,9 +83,20 @@ public class CheckliteSolution {
 
         if (offerMap.containsKey(sku.getIetm())) {
             Offer offerForItem = offerMap.get(sku.getIetm());
-            if (offerForItem.getSingleOfferQty() <= sku.getQty()) {
-                price += offerForItem.getSingleOfferPrice() * (sku.getQty() / offerForItem.getSingleOfferQty());
-                price += prices.get(sku.getIetm()) * (sku.getQty() % offerForItem.getSingleOfferQty());
+            if (offerForItem.quantityVsPrice.values().size() == 1) {
+                if (offerForItem.getSingleOfferQty() <= sku.getQty()) {
+                    price += offerForItem.getSingleOfferPrice() * (sku.getQty() / offerForItem.getSingleOfferQty());
+                    price += prices.get(sku.getIetm()) * (sku.getQty() % offerForItem.getSingleOfferQty());
+                }
+            }else {
+                int remainingQty = sku.getQty();//9
+                for (Map.Entry offer : offerForItem.getQuantityVsPrice().entrySet()) {
+                    if()
+                }
+
+
+
+
             }
         }
         if (price == 0 && prices.containsKey(sku.getIetm())) {
@@ -100,8 +111,7 @@ public class CheckliteSolution {
     }
 
     private ImmutableMap<String, Offer> initOfferMap() {
-        Offer o1 = new Offer(3, "A", 130);
-        Offer o3 = new Offer(5, "A", 200);
+        Offer o1 = Offer.builder().forItem("A").offer(3, 130).offer(5, 200).build();
         Offer o2 = new Offer(2, "B", 45);
 
         return ImmutableMap.<String, Offer>builder()
@@ -110,3 +120,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+

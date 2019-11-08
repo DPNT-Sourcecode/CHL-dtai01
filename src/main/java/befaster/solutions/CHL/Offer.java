@@ -3,15 +3,21 @@ package befaster.solutions.CHL;
 import com.google.common.collect.Iterables;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import static com.google.common.collect.Maps.newHashMap;
 
 public class Offer {
     private String item;
-    Map<Integer, Integer> quantityVsPrice = newHashMap();
+    Map<Integer, Integer> quantityVsPrice = new TreeMap<>();
 
-    Offer() {
+    private Offer() {
     }
+
+    public Map<Integer, Integer> getQuantityVsPrice() {
+        return quantityVsPrice;
+    }
+
 
     Offer(int qty, String item, Integer price) {
         this.item = item;
@@ -27,10 +33,10 @@ public class Offer {
     }
 
     public Integer getSingleOfferPrice() {
-        Iterables.getOnlyElement(quantityVsPrice.values());
+        return Iterables.getOnlyElement(quantityVsPrice.values());
     }
 
-    Builder builder() {
+    static Builder builder() {
         return new Builder();
     }
 
@@ -57,3 +63,4 @@ public class Offer {
         }
     }
 }
+
