@@ -61,13 +61,18 @@ public class CheckliteSolutionTest {
 
     @Test
     public void checkliteNonPresentItem() {
-
         Integer price = solution.checklite("78G");
+        Assert.assertEquals(new Integer(-1),price);
+    }
+
+    @Test
+    public void checkliteForIlleagalInput() {
+        Integer price = solution.checklite("A");
         Assert.assertEquals(new Integer(-1),price);
     }
 
 
 
-
 }
+
 
