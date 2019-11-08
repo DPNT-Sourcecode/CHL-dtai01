@@ -3,6 +3,8 @@ package befaster.solutions.CHL;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -17,7 +19,12 @@ public class CheckliteSolution {
             .build();
 
     private List<SKU> parse(String input) {
-        
+        Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[A-Z]+");
+        List<String> chunks = newArrayList();
+        Matcher matcher = VALID_PATTERN.matcher(input);
+        while (matcher.find()) {
+            chunks.add( matcher.group() );
+        }
         String item = input.replaceAll("^[0-9]", "").trim();
         Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
         return newArrayList(new SKU(item,quantity));
@@ -55,5 +62,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
