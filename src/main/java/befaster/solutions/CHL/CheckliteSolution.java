@@ -90,13 +90,13 @@ public class CheckliteSolution {
                 }
             }else {
                 int remainingQty = sku.getQty();//9
-                for (Map.Entry offer : offerForItem.getQuantityVsPrice().entrySet()) {
-                    if()
+                for (Map.Entry<Integer,Integer> offer : offerForItem.getQuantityVsPrice().entrySet()) {
+                    if(offer.getKey()<=remainingQty){
+                        price+= offer.getValue() * (remainingQty / offer.getKey());
+                        remainingQty-=offer.getKey()*(remainingQty / offer.getKey());
+                    }
                 }
-
-
-
-
+                price += prices.get(sku.getIetm()) * (remainingQty);
             }
         }
         if (price == 0 && prices.containsKey(sku.getIetm())) {
@@ -120,4 +120,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 

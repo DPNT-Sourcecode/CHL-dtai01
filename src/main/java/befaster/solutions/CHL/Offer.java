@@ -2,6 +2,7 @@ package befaster.solutions.CHL;
 
 import com.google.common.collect.Iterables;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -9,7 +10,7 @@ import static com.google.common.collect.Maps.newHashMap;
 
 public class Offer {
     private String item;
-    Map<Integer, Integer> quantityVsPrice = new TreeMap<>();
+    Map<Integer, Integer> quantityVsPrice = new TreeMap<>(Collections.reverseOrder());
 
     private Offer() {
     }
@@ -63,4 +64,5 @@ public class Offer {
         }
     }
 }
+
 
