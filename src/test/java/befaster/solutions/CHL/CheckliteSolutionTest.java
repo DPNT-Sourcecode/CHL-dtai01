@@ -28,7 +28,7 @@ public class CheckliteSolutionTest {
     public void checkliteOfferAndNormalPriceSingleItem() {
 
         Integer price = solution.checklite("5A");
-        Assert.assertEquals(new Integer(230), price);
+        Assert.assertEquals(new Integer(200), price);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class CheckliteSolutionTest {
     public void checkliteMultipleProductForNormalAndOfferPrice() {
 
         Integer price = solution.checklite("5A1B");
-        Assert.assertEquals(new Integer(260), price);
+        Assert.assertEquals(new Integer(230), price);
     }
 
     @Test
@@ -115,3 +115,4 @@ public class CheckliteSolutionTest {
 
 
 }
+
