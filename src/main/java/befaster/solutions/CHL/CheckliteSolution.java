@@ -1,8 +1,20 @@
 package befaster.solutions.CHL;
 
 import befaster.runner.SolutionNotImplementedException;
+import com.google.common.collect.ImmutableMap;
+
+import java.util.Map;
 
 public class CheckliteSolution {
+
+    private final static ImmutableMap<String,Integer> prices = ImmutableMap.builder()
+                                                        .put("A",50)
+                                                        .put("B",30)
+                                                        .put("C",20)
+                                                        .put("D",15)
+                                                        .build();
+
+
     public Integer checklite(String skus) {
         //separate number and item name
 
@@ -12,4 +24,5 @@ public class CheckliteSolution {
         // get value of item from map
     }
 }
+
 
