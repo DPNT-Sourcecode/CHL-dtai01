@@ -49,7 +49,7 @@ public class CheckliteSolutionTest {
     public void checkliteNewItemOfferWithFreeItem2() {
 
         Integer price = solution.checklite("EEEB");
-        Assert.assertEquals(new Integer(150), price);
+        Assert.assertEquals(new Integer(120), price);
     }
 
     @Test
@@ -143,3 +143,4 @@ public class CheckliteSolutionTest {
 
 
 }
+
