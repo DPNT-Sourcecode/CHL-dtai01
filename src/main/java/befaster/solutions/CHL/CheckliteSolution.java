@@ -153,7 +153,3 @@ public class CheckliteSolution {
                 .build();
     }
 }
-
-
-
-

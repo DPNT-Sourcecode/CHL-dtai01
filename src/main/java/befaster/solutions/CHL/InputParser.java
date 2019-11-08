@@ -55,4 +55,3 @@ public class InputParser {
         return chunks;
     }
 }
-
