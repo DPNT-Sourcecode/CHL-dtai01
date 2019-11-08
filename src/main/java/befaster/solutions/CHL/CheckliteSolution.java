@@ -28,7 +28,3 @@ public class CheckliteSolution {
         return 0;
     }
 }
-
-
-
-
