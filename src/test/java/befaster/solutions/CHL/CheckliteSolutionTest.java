@@ -77,7 +77,7 @@ public class CheckliteSolutionTest {
     public void checkliteNewItemOfferWithFreeItem6() {
 
         Integer price = solution.checklite("ABCDEABCDE");
-        Assert.assertEquals(new Integer(265), price);
+        Assert.assertEquals(new Integer(280), price);
     }
 
     @Test
