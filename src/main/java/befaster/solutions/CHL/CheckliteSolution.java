@@ -28,14 +28,14 @@ public class CheckliteSolution {
         try {
             List<SKU> skuList = InputParser.parse(input);
             Map<String, SKU> skuMap = skuList.stream().collect(Collectors.toMap(SKU::getIetm, sku -> sku));
-            List<SKU> finalItemsToCalculate = calculateFreeItems(skuMap,offerMap);
+            List<SKU> finalItemsToCalculate = filterFreeItems(skuMap,offerMap);
             return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku, skuMap)).sum();
         } catch (InvalidInputException e) {
             return -1;
         }
     }
 
-    private List<SKU> calculateFreeItems(Map<String, SKU> skuMap, ImmutableMap<String, Offer> offerMap) {
+    private List<SKU> filterFreeItems(Map<String, SKU> skuMap, ImmutableMap<String, Offer> offerMap) {
         Map<String,Integer> finalItemVsQty =  newHashMap();
         List<SKU> finalLIstOfSku = newArrayList();
 
@@ -43,7 +43,8 @@ public class CheckliteSolution {
             if(offerMap.containsKey(sku.getIetm())){
                 Offer offer = offerMap.get(sku.getIetm());
                 if(offer.getFreeItem()!=null){
-                    SKU freeItem  = skuMap.get(offer.getFreeItem());
+                    SKU freeItem  = skuMap.get(offer.getFreeItem());//B
+//                    freeItem.getQty()-
                     
                 }
             }
@@ -99,5 +100,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
