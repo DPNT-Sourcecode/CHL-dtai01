@@ -56,9 +56,9 @@ public class CheckliteSolution {
 
     private List<SKU> filterFreeItems(Map<String, SKU> skuMap, ImmutableMap<String, Offer> offerMap) {
         Map<String, SKU> finalItemVsQty = newHashMap();
-        boolean selfFree = false;
 
         for (SKU sku : skuMap.values()) {
+            boolean selfFree = false;
             if (offerMap.containsKey(sku.getIetm())) {
                 Offer offer = offerMap.get(sku.getIetm());
                 if (someItemIsFree(skuMap, offer)) {
@@ -169,4 +169,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
