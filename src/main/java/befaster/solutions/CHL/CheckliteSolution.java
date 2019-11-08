@@ -5,9 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -31,11 +28,28 @@ public class CheckliteSolution {
         try {
             List<SKU> skuList = InputParser.parse(input);
             Map<String, SKU> skuMap = skuList.stream().collect(Collectors.toMap(SKU::getIetm, sku -> sku));
-            Set duplicateSkuListForFreeItems = newHashSet(skuList);
+            List<SKU> finalItemsToCalculate = calculateFreeItems(skuMap,offerMap);
             return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku, skuMap)).sum();
         } catch (InvalidInputException e) {
             return -1;
         }
+    }
+
+    private List<SKU> calculateFreeItems(Map<String, SKU> skuMap, ImmutableMap<String, Offer> offerMap) {
+        Map<String,Integer> finalItemVsQty =  newHashMap();
+        List<SKU> finalLIstOfSku = newArrayList();
+
+        for (SKU sku : skuMap.values()) {
+            if(offerMap.containsKey(sku.getIetm())){
+                Offer offer = offerMap.get(sku.getIetm());
+                if(offer.getFreeItem()!=null){
+                    SKU freeItem  = skuMap.get(offer.getFreeItem());
+                }
+            }
+        }
+
+
+        return finalLIstOfSku;
     }
 
     private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku, Map<String, SKU> duplicateSkuMapForFreeItems) {
@@ -51,10 +65,10 @@ public class CheckliteSolution {
                     remainingQty -= offer.getKey() * noOfTimeOfferCaqnBeApplied;
                     if (offerForItem.getFreeItem() != null && duplicateSkuMapForFreeItems.containsKey(offerForItem.getFreeItem())) {
                         SKU freeItem = duplicateSkuMapForFreeItems.get(offerForItem.getFreeItem());
-                        if (noOfTimeOfferCaqnBeApplied > freeItem.getQty()){
-                            price-= freeItem.getQty()*prices.get(freeItem.getIetm());
-                        }else {
-                            price-=noOfTimeOfferCaqnBeApplied*prices.get(freeItem.getIetm());
+                        if (noOfTimeOfferCaqnBeApplied > freeItem.getQty()) {
+                            price -= freeItem.getQty() * prices.get(freeItem.getIetm());
+                        } else {
+                            price -= noOfTimeOfferCaqnBeApplied * prices.get(freeItem.getIetm());
                         }
                     }
                 }
@@ -84,3 +98,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
