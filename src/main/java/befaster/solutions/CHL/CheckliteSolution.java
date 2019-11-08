@@ -76,10 +76,3 @@ public class CheckliteSolution {
                 .build();
     }
 }
-
-
-
-
-
-
-
