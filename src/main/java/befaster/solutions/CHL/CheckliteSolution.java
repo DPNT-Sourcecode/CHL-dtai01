@@ -18,7 +18,26 @@ public class CheckliteSolution {
             .put("D", 15)
             .put("E", 40)
             .put("F", 10)
-            
+            .put("G", 20)
+            .put("H", 10)
+            .put("I", 35)
+            .put("J", 60)
+            .put("K", 80)
+            .put("L", 90)
+            .put("M", 15)
+            .put("N", 40)
+            .put("O", 10)
+            .put("P", 50)
+            .put("Q", 30)
+            .put("R", 50)
+            .put("S", 30)
+            .put("T", 20)
+            .put("U", 40)
+            .put("V", 50)
+            .put("W", 20)
+            .put("X", 90)
+            .put("Y", 10)
+            .put("Z", 50)
             .build();
 
     public Integer checklite(String input) {
@@ -133,5 +152,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
