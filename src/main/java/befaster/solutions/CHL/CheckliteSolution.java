@@ -18,6 +18,7 @@ public class CheckliteSolution {
             .put("D", 15)
             .put("E", 40)
             .put("F", 10)
+            
             .build();
 
     public Integer checklite(String input) {
@@ -41,26 +42,8 @@ public class CheckliteSolution {
         for (SKU sku : skuMap.values()) {
             if (offerMap.containsKey(sku.getIetm())) {
                 Offer offer = offerMap.get(sku.getIetm());
-                if (offer.getFreeItem() != null && skuMap.containsKey(offer.getFreeItem())) {
-                    SKU freeItem = skuMap.get(offer.getFreeItem());//F
-                    selfFree = freeItem.getIetm().equals(sku.getIetm());
-                    Integer freeItems = calculateFreeItems(sku, offer);
-                    int finalQuantityToPay;
-
-                    if (selfFree) {
-                        int remainingQty = sku.getQty();
-                        freeItems = 0;
-                        while (remainingQty > offer.getSingleOfferQty()) { //4
-                            remainingQty -= offer.getSingleOfferQty();//2
-                            remainingQty -= 1;//1
-                            freeItems++;//1
-                        }
-                        finalQuantityToPay = freeItem.getQty() - freeItems;
-                    } else {
-                        finalQuantityToPay = freeItem.getQty() - freeItems;
-                    }
-                    int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
-                    finalItemVsQty.put(freeItem.getIetm(), new SKU(freeItem.getIetm(), qty));
+                if (someItemIsFree(skuMap, offer)) {
+                    selfFree = keepOnlyPayableItems(skuMap, finalItemVsQty, sku, offer);
                 }
             }
             if (!selfFree) {
@@ -68,6 +51,34 @@ public class CheckliteSolution {
             }
         }
         return newArrayList(finalItemVsQty.values());
+    }
+
+    private boolean someItemIsFree(Map<String, SKU> skuMap, Offer offer) {
+        return offer.getFreeItem() != null && skuMap.containsKey(offer.getFreeItem());
+    }
+
+    private boolean keepOnlyPayableItems(Map<String, SKU> skuMap, Map<String, SKU> finalItemVsQty, SKU sku, Offer offer) {
+        boolean selfFree;
+        SKU freeItem = skuMap.get(offer.getFreeItem());//F
+        selfFree = freeItem.getIetm().equals(sku.getIetm());
+        Integer freeItems = calculateFreeItems(sku, offer);
+        int finalQuantityToPay;
+
+        if (selfFree) {
+            int remainingQty = sku.getQty();
+            freeItems = 0;
+            while (remainingQty > offer.getSingleOfferQty()) { //4
+                remainingQty -= offer.getSingleOfferQty();//2
+                remainingQty -= 1;//1
+                freeItems++;//1
+            }
+            finalQuantityToPay = freeItem.getQty() - freeItems;
+        } else {
+            finalQuantityToPay = freeItem.getQty() - freeItems;
+        }
+        int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
+        finalItemVsQty.put(freeItem.getIetm(), new SKU(freeItem.getIetm(), qty));
+        return selfFree;
     }
 
     private Integer calculateFreeItems(SKU sku, Offer offer) {
@@ -81,16 +92,7 @@ public class CheckliteSolution {
         int price = 0;
 
         if (offerMap.containsKey(sku.getIetm())) {
-            Offer offerForItem = offerMap.get(sku.getIetm());
-            int remainingQty = sku.getQty();//4
-            for (Map.Entry<Integer, Integer> offer : offerForItem.getQuantityVsPrice().entrySet()) {
-                if (offer.getKey() <= remainingQty) {
-                    int noOfTimeOfferCaqnBeApplied = remainingQty / offer.getKey();
-                    price += offer.getValue() * noOfTimeOfferCaqnBeApplied;
-                    remainingQty -= offer.getKey() * noOfTimeOfferCaqnBeApplied;
-                }
-            }
-            price += prices.get(sku.getIetm()) * (remainingQty);
+            price = applyLessPriceOffer(offerMap, sku, price);
         }
         if (price == 0 && prices.containsKey(sku.getIetm())) {
             price = sku.getQty() * prices.get(sku.getIetm());
@@ -100,6 +102,20 @@ public class CheckliteSolution {
             return -1;
         }
 
+        return price;
+    }
+
+    private int applyLessPriceOffer(ImmutableMap<String, Offer> offerMap, SKU sku, int price) {
+        Offer offerForItem = offerMap.get(sku.getIetm());
+        int remainingQty = sku.getQty();//4
+        for (Map.Entry<Integer, Integer> offer : offerForItem.getQuantityVsPrice().entrySet()) {
+            if (offer.getKey() <= remainingQty) {
+                int noOfTimeOfferCaqnBeApplied = remainingQty / offer.getKey();
+                price += offer.getValue() * noOfTimeOfferCaqnBeApplied;
+                remainingQty -= offer.getKey() * noOfTimeOfferCaqnBeApplied;
+            }
+        }
+        price += prices.get(sku.getIetm()) * (remainingQty);
         return price;
     }
 
@@ -117,4 +133,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
