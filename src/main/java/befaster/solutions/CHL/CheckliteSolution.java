@@ -139,17 +139,34 @@ public class CheckliteSolution {
     }
 
     private ImmutableMap<String, Offer> initOfferMap() {
-        Offer o1 = Offer.builder().forItem("A").offer(3, 130).offer(5, 200).build();
-        Offer o2 = new Offer(2, "B", 45);
-        Offer o3 = Offer.builder().forItem("E").offer(2, 80).freeItem("B").build();
-        Offer o4 = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();
-        Offer o5 = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();//5H for 45, 10H for 80
+        Offer oa = Offer.builder().forItem("A").offer(3, 130).offer(5, 200).build();
+        Offer ob = new Offer(2, "B", 45);
+        Offer oe = Offer.builder().forItem("E").offer(2, 80).freeItem("B").build();
+        Offer of = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();
+        Offer oh = Offer.builder().forItem("H").offer(5, 45).offer(10,80).build();//5H for 45, 10H for 80
+        Offer ok = Offer.builder().forItem("K").offer(2, 150).build();//2K for 150
+        Offer ov = Offer.builder().forItem("V").offer(2, 90).offer(3,130).build();       //  2V for 90, 3V for 130
+        Offer on = Offer.builder().forItem("N").offer(3, 120).freeItem("M").build();       //  3N get one M free
+        Offer op = Offer.builder().forItem("P").offer(5, 200).build();       //  5P for 200
+        Offer oq = Offer.builder().forItem("Q").offer(3, 80).build();       // 3Q for 80
+        Offer or = Offer.builder().forItem("R").offer(3, 150).freeItem("Q").build();       // 3R get one Q free
+        Offer ou = Offer.builder().forItem("U").offer(3, 120).freeItem("U").build();       // 3U get one U free
+
 
         return ImmutableMap.<String, Offer>builder()
-                .put("A", o1)
-                .put("B", o2)
-                .put("E", o3)
-                .put("F", o4)
+                .put("A", oa)
+                .put("B", ob)
+                .put("E", oe)
+                .put("F", of)
+                .put("H", oh)
+                .put("K", ok)
+                .put("V", ov)
+                .put("N", on)
+                .put("P", op)
+                .put("Q", oq)
+                .put("R", or)
+                .put("U", ou)
                 .build();
     }
 }
+
