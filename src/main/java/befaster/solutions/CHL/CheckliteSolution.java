@@ -16,15 +16,19 @@ public class CheckliteSolution {
 
 
     public Integer checklite(String skus) {
-        
+        String item = "";
+                Integer quantity =0;
+
         //separate number and item name
 
         //offer count%total number = original item to price
         //offer count/total number = offer price
 
         // get value of item from map
+        return 0;
     }
 }
+
 
 
 
