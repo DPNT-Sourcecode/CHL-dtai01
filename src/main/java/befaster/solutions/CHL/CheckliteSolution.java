@@ -31,7 +31,7 @@ public class CheckliteSolution {
                 if(prices.containsKey(chunks.get(i))){
                     skus.add(new SKU(chunks.get(i), 1));
                     i++;
-                }else {
+                }else {//AxA ABCD
                     throw new InvalidInputException("invalid input "+chunks.get(i));
                 }
             }
@@ -98,6 +98,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
