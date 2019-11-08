@@ -54,7 +54,7 @@ public class CheckliteSolutionTest {
     public void checkliteNonPresentItem() {
 
         Integer price = solution.checklite("78G");
-        Assert.assertEquals(new Integer(50),price);
+        Assert.assertEquals(new Integer(-1),price);
     }
 
 

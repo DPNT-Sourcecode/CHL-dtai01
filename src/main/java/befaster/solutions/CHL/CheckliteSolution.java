@@ -52,6 +52,11 @@ public class CheckliteSolution {
         if (price==0 && prices.containsKey(sku.getIetm()) ) {
             price = sku.getQty() * prices.get(sku.getIetm());
         }
+
+        if(price==0 && !prices.containsKey(sku.getIetm())){
+            return -1;
+        }
+
         return price;
     }
 
@@ -65,5 +70,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
