@@ -34,14 +34,14 @@ public class CheckliteSolution {
         return skus;
     }
 
-    public Integer checklite(String skus) {
+    public Integer checklite(String input) {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
-        if(Strings.isNullOrEmpty(skus)){
+        if(Strings.isNullOrEmpty(input)){
             return 0;
         }
-        System.out.println(skus);
-        List<SKU> skuList = parse(skus);
+        System.out.println(input);
+        List<SKU> skuList = parse(input);
         return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
     }
 
@@ -76,6 +76,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
