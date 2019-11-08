@@ -72,6 +72,12 @@ public class CheckliteSolutionTest {
     }
 
     @Test
+    public void checkliteForMultipleSingleSKU() {
+        Integer price = solution.checklite("ABCD");
+        Assert.assertEquals(new Integer(115), price);
+    }
+
+    @Test
     public void checkliteForIlleagalInput2() {
         Integer price = solution.checklite("AxA");
         Assert.assertEquals(new Integer(-1), price);
@@ -91,3 +97,4 @@ public class CheckliteSolutionTest {
 
 
 }
+
