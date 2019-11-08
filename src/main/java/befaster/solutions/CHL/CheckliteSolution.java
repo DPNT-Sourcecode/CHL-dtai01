@@ -1,6 +1,5 @@
 package befaster.solutions.CHL;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
@@ -19,7 +18,20 @@ public class CheckliteSolution {
             .put("B", 30)
             .put("C", 20)
             .put("D", 15)
+            .put("E", 40)
             .build();
+
+    public Integer checklite(String input) {
+        ImmutableMap<String, Offer> offerMap = initOfferMap();
+
+        System.out.println(input);
+        try {
+            List<SKU> skuList = parse(input);
+            return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
+        } catch (InvalidInputException e) {
+            return -1;
+        }
+    }
 
     private List<SKU> parse(String input) {
         List<SKU> skus = newArrayList();
@@ -66,27 +78,14 @@ public class CheckliteSolution {
         return chunks;
     }
 
-    public Integer checklite(String input) {
-        ImmutableMap<String, Offer> offerMap = initOfferMap();
-
-
-        System.out.println(input);
-        try {
-            List<SKU> skuList = parse(input);
-            return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
-        } catch (InvalidInputException e) {
-            return -1;
-        }
-    }
-
     private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku) {
         int price = 0;
 
         if (offerMap.containsKey(sku.getIetm())) {
             Offer offerForItem = offerMap.get(sku.getIetm());
-            if (offerForItem.getQty() <= sku.getQty()) {
-                price += offerForItem.getPrice() * (sku.getQty() / offerForItem.getQty());
-                price += prices.get(sku.getIetm()) * (sku.getQty() % offerForItem.getQty());
+            if (offerForItem.getSingleOfferQty() <= sku.getQty()) {
+                price += offerForItem.getSingleOfferPrice() * (sku.getQty() / offerForItem.getSingleOfferQty());
+                price += prices.get(sku.getIetm()) * (sku.getQty() % offerForItem.getSingleOfferQty());
             }
         }
         if (price == 0 && prices.containsKey(sku.getIetm())) {
@@ -102,6 +101,7 @@ public class CheckliteSolution {
 
     private ImmutableMap<String, Offer> initOfferMap() {
         Offer o1 = new Offer(3, "A", 130);
+        Offer o3 = new Offer(5, "A", 200);
         Offer o2 = new Offer(2, "B", 45);
 
         return ImmutableMap.<String, Offer>builder()
@@ -110,5 +110,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
