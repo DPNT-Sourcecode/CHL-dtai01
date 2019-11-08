@@ -22,9 +22,18 @@ public class CheckliteSolution {
     private List<SKU> parse(String input) {
         List<SKU> skus = newArrayList();
         List<String> chunks = separateValidChunsfItemNameAndQantity(input);
-        for (int i = 0; i <= chunks.size() - 1; i++) {
-            skus.add(new SKU(chunks.get(i + 1), Integer.parseInt(chunks.get(i))));
-            i = i + 1;
+        int i = 0;
+        while (i <= chunks.size() - 1) {
+            if (chunks.get(i).matches("[0-9]")) { //2A
+                skus.add(new SKU(chunks.get(i + 1), Integer.parseInt(chunks.get(i))));
+                i = i + 1;
+            } else {//A
+                if(prices.containsKey(chunks.get(i))){
+                    skus.add(new SKU(chunks.get(i), 1));
+                }else {
+                    throw new InvalidInputException("invalid input "+chunks.get(i));
+                }
+            }
         }
         return skus;
     }
@@ -37,11 +46,11 @@ public class CheckliteSolution {
             chunks.add(matcher.group());
         }
 
-        long quantityCount = chunks.stream().filter(c -> c.matches("[0-9]")).count();
-
-        if (chunks.size() != quantityCount*2) {
-            throw new InvalidInputException("Invalid Input - " + chunks);
-        }
+//        long quantityCount = chunks.stream().filter(c -> c.matches("[0-9]")).count();
+//
+//        if (chunks.size() != quantityCount * 2) {
+//            throw new InvalidInputException("Invalid Input - " + chunks);
+//        }
         return chunks;
     }
 
@@ -91,6 +100,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
