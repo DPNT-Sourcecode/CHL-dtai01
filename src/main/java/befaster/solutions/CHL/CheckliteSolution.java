@@ -26,10 +26,11 @@ public class CheckliteSolution {
         while (i <= chunks.size() - 1) {
             if (chunks.get(i).matches("[0-9]")) { //2A
                 skus.add(new SKU(chunks.get(i + 1), Integer.parseInt(chunks.get(i))));
-                i = i + 1;
+                i = i + 2;
             } else {//A
                 if(prices.containsKey(chunks.get(i))){
                     skus.add(new SKU(chunks.get(i), 1));
+                    i++;
                 }else {
                     throw new InvalidInputException("invalid input "+chunks.get(i));
                 }
@@ -100,6 +101,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
