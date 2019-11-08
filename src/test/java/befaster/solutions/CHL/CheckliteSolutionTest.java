@@ -10,16 +10,16 @@ public class CheckliteSolutionTest {
     CheckliteSolution solution = new CheckliteSolution();
 
     @Test
-    public void checklite() {
+    public void checkliteSimpleSingleItem() {
 
         Integer price = solution.checklite("2A");
         Assert.assertEquals(new Integer(100),price);
     }
 
     @Test
-    public void checklite() {
+    public void checkliteForOfferPrice() {
 
         Integer price = solution.checklite("3A");
-        Assert.assertEquals(new Integer(100),price);
+        Assert.assertEquals(new Integer(130),price);
     }
 }
