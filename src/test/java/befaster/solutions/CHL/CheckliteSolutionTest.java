@@ -56,7 +56,7 @@ public class CheckliteSolutionTest {
     public void checkliteInvalidSKU() {
 
         Integer price = solution.checklite("dfsd1A");
-        Assert.assertEquals(new Integer(50), price);
+        Assert.assertEquals(new Integer(-1), price);
     }
 
     @Test
