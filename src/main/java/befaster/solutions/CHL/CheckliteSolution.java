@@ -19,15 +19,21 @@ public class CheckliteSolution {
             .build();
 
     private List<SKU> parse(String input) {
+        List<SKU> skus = newArrayList();
         Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[A-Z]+");
         List<String> chunks = newArrayList();
         Matcher matcher = VALID_PATTERN.matcher(input);
         while (matcher.find()) {
             chunks.add( matcher.group() );
         }
-        String item = input.replaceAll("^[0-9]", "").trim();
-        Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
-        return newArrayList(new SKU(item,quantity));
+        for (int i = 0;i<chunks.size()-1;i++) {
+            skus.add(new SKU(chunks.get(i+1), Integer.parseInt(chunks.get(i))));
+            i = i+2;
+        }
+//        String item = input.replaceAll("^[0-9]", "").trim();
+//        Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
+//        return newArrayList(new SKU(item,quantity));
+        return skus;
     }
 
     public Integer checklite(String skus) {
@@ -62,3 +68,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
