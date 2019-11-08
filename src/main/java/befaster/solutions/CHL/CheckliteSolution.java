@@ -41,6 +41,11 @@ public class CheckliteSolution {
 
     private List<String> separateValidChunsfItemNameAndQantity(String input) {
         Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[A-Z]+");
+        Pattern invalidPattern = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        Pattern invalidChars = Pattern.compile("[a-z]");
+        if (invalidPattern.matcher(input).find()|| invalidChars.matcher(input).find()) {
+            throw new InvalidInputException("symbol in input"+input);
+        }
         List<String> chunks = newArrayList();
         Matcher matcher = VALID_PATTERN.matcher(input);
         while (matcher.find()) {
@@ -52,9 +57,7 @@ public class CheckliteSolution {
     public Integer checklite(String input) {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
-        if (input.matches("")) {
-            return 0;
-        }
+
         System.out.println(input);
         try {
             List<SKU> skuList = parse(input);
@@ -95,3 +98,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
