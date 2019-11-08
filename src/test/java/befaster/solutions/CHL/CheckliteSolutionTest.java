@@ -175,4 +175,10 @@ public class CheckliteSolutionTest {
         Assert.assertEquals(new Integer(20), price);
     }
 
+    @Test
+    public void checkliteForOfferSelfFree3() {
+        Integer price = solution.checklite("FFFF");
+        Assert.assertEquals(new Integer(30), price);
+    }
+
 }
