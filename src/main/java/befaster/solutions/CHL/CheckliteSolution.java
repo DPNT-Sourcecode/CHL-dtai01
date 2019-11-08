@@ -40,7 +40,7 @@ public class CheckliteSolution {
         for (SKU sku : skuMap.values()) {
             if (offerMap.containsKey(sku.getIetm())) {
                 Offer offer = offerMap.get(sku.getIetm());
-                if (offer.getFreeItem() != null && skuMap.containsKey(offer.getItem())) {
+                if (offer.getFreeItem() != null && skuMap.containsKey(offer.getFreeItem())) {
                     SKU freeItem = skuMap.get(offer.getFreeItem());//B
                     int finalQuantityToPay = freeItem.getQty() - calculateFreeItems(sku, offer);
                     int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
@@ -105,5 +105,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
