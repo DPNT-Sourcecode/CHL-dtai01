@@ -44,8 +44,8 @@ public class CheckliteSolution {
                 Offer offer = offerMap.get(sku.getIetm());
                 if(offer.getFreeItem()!=null){
                     SKU freeItem  = skuMap.get(offer.getFreeItem());//B
-//                    freeItem.getQty()-
-                    
+                    freeItem.getQty()-
+
                 }
             }
         }
@@ -100,6 +100,3 @@ public class CheckliteSolution {
                 .build();
     }
 }
-
-
-
