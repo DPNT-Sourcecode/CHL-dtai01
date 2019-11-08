@@ -30,7 +30,7 @@ public class CheckliteSolution {
             int price = 0;
             if (offerMap.containsKey(sku.getIetm())) {
                 Offer offerForItem = offerMap.get(sku.getIetm());
-                if (offerForItem.getQty() >= sku.getQty()) {
+                if (offerForItem.getQty() <= sku.getQty()) {
                     price += offerForItem.getPrice() * (sku.getQty() / offerForItem.getQty());
                     price += offerForItem.getPrice() * (sku.getQty() % offerForItem.getQty());
                 }
@@ -62,3 +62,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
