@@ -41,7 +41,7 @@ public class InputParser {
     }
 
     private static List<String> separateValidChunsfItemNameAndQantity(String input) {
-        Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[ABCDE]");
+        Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[ABCDEF]");
         Pattern invalidPattern = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
         Pattern invalidChars = Pattern.compile("[a-z]");
         if (invalidPattern.matcher(input).find() || invalidChars.matcher(input).find()) {

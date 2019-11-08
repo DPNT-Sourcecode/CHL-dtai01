@@ -162,5 +162,17 @@ public class CheckliteSolutionTest {
         Assert.assertEquals(new Integer(-1), price);
     }
 
+    //ch_3
+    @Test
+    public void checkliteForOfferSelfFree() {
+        Integer price = solution.checklite("FF");
+        Assert.assertEquals(new Integer(20), price);
+    }
+
+    @Test
+    public void checkliteForOfferSelfFree2() {
+        Integer price = solution.checklite("FFF");
+        Assert.assertEquals(new Integer(20), price);
+    }
 
 }

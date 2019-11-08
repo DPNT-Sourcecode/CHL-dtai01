@@ -18,6 +18,7 @@ public class CheckliteSolution {
             .put("C", 20)
             .put("D", 15)
             .put("E", 40)
+            .put("F", 10)
             .build();
 
     public Integer checklite(String input) {
@@ -70,14 +71,6 @@ public class CheckliteSolution {
                     int noOfTimeOfferCaqnBeApplied = remainingQty / offer.getKey();
                     price += offer.getValue() * noOfTimeOfferCaqnBeApplied;
                     remainingQty -= offer.getKey() * noOfTimeOfferCaqnBeApplied;
-//                    if (offerForItem.getFreeItem() != null && duplicateSkuMapForFreeItems.containsKey(offerForItem.getFreeItem())) {
-//                        SKU freeItem = duplicateSkuMapForFreeItems.get(offerForItem.getFreeItem());
-//                        if (noOfTimeOfferCaqnBeApplied > freeItem.getQty()) {
-//                            price -= freeItem.getQty() * prices.get(freeItem.getIetm());
-//                        } else {
-//                            price -= noOfTimeOfferCaqnBeApplied * prices.get(freeItem.getIetm());
-//                        }
-//                    }
                 }
             }
             price += prices.get(sku.getIetm()) * (remainingQty);
@@ -97,11 +90,13 @@ public class CheckliteSolution {
         Offer o1 = Offer.builder().forItem("A").offer(3, 130).offer(5, 200).build();
         Offer o2 = new Offer(2, "B", 45);
         Offer o3 = Offer.builder().forItem("E").offer(2, 80).freeItem("B").build();
+        Offer o4 = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();
 
         return ImmutableMap.<String, Offer>builder()
                 .put("A", o1)
                 .put("B", o2)
                 .put("E", o3)
+                .put("F", o4)
                 .build();
     }
 }
