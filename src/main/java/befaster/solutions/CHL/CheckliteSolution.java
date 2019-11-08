@@ -37,6 +37,7 @@ public class CheckliteSolution {
 
     private List<SKU> filterFreeItems(Map<String, SKU> skuMap, ImmutableMap<String, Offer> offerMap) {
         Map<String, SKU> finalItemVsQty = newHashMap();
+        boolean selfFree = false;
 
         for (SKU sku : skuMap.values()) {
             if (offerMap.containsKey(sku.getIetm())) {
@@ -46,9 +47,12 @@ public class CheckliteSolution {
                     int finalQuantityToPay = freeItem.getQty() - calculateFreeItems(sku, offer);
                     int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
                     finalItemVsQty.put(freeItem.getIetm(), new SKU(freeItem.getIetm(), qty));
+                    selfFree = sku.getIetm().equals(freeItem.getIetm());
                 }
             }
-            finalItemVsQty.put(sku.getIetm(), sku);
+            if (!selfFree) {
+                finalItemVsQty.put(sku.getIetm(), sku);
+            }
         }
         return newArrayList(finalItemVsQty.values());
     }
@@ -100,3 +104,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
