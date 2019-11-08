@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CheckliteSolution {
 
-    private final static ImmutableMap<String,Integer> prices = ImmutableMap.builder()
+    private final static ImmutableMap<String,Integer> prices = ImmutableMap.<String, Integer>builder()
                                                         .put("A",50)
                                                         .put("B",30)
                                                         .put("C",20)
@@ -16,6 +16,7 @@ public class CheckliteSolution {
 
 
     public Integer checklite(String skus) {
+        
         //separate number and item name
 
         //offer count%total number = original item to price
@@ -24,5 +25,6 @@ public class CheckliteSolution {
         // get value of item from map
     }
 }
+
 
 
