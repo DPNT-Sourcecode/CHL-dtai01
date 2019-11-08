@@ -11,6 +11,7 @@ import static com.google.common.collect.Maps.newHashMap;
 public class Offer {
     private String item;
     Map<Integer, Integer> quantityVsPrice = new TreeMap<>(Collections.reverseOrder());
+    private String freeItem;
 
     private Offer() {
     }
@@ -27,6 +28,10 @@ public class Offer {
 
     public int getSingleOfferQty() {
         return Iterables.getOnlyElement(quantityVsPrice.keySet());
+    }
+
+    public String getFreeItem() {
+        return freeItem;
     }
 
     public String getItem() {
@@ -54,6 +59,11 @@ public class Offer {
             return this;
         }
 
+        public Builder freeItem(String item) {
+            offer.freeItem = item;
+            return this;
+        }
+
         public Builder offer(int qty, int prize) {
             offer.quantityVsPrice.put(qty, prize);
             return this;
@@ -64,5 +74,6 @@ public class Offer {
         }
     }
 }
+
 
 
