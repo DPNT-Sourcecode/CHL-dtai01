@@ -3,6 +3,8 @@ package befaster.solutions.CHL;
 import befaster.runner.SolutionNotImplementedException;
 import com.google.common.collect.ImmutableMap;
 
+import javax.print.DocFlavor;
+import java.util.List;
 import java.util.Map;
 
 public class CheckliteSolution {
@@ -15,9 +17,14 @@ public class CheckliteSolution {
                                                         .build();
 
 
+//    private List<String> parse (String input){
+//
+//    }
+
+
     public Integer checklite(String skus) {
         String item = skus.replaceAll("^[0-9]","").trim();
-        String trim = skus.replaceAll("^[A-Z]", "").trim();
+        String trim = skus.replaceAll("^[a-z]", "").trim();
         System.out.printf(item+" "+trim);
         Integer quantity =Integer.parseInt(trim);
 
@@ -37,3 +44,4 @@ public class CheckliteSolution {
         // get value of item from map
     }
 }
+
