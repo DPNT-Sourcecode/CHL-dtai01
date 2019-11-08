@@ -22,4 +22,13 @@ public class CheckliteSolutionTest {
         Integer price = solution.checklite("3A");
         Assert.assertEquals(new Integer(130),price);
     }
+
+//    @Test
+//    public void checkliteMultipleProductForNormalPrice() {
+//
+//        Integer price = solution.checklite("2A1B");
+//        Assert.assertEquals(new Integer(130),price);
+//    }
+
+
 }

@@ -1,13 +1,13 @@
 package befaster.solutions.CHL;
 
-import befaster.runner.SolutionNotImplementedException;
 import com.google.common.collect.ImmutableMap;
 
-import javax.print.DocFlavor;
 import java.util.List;
-import java.util.Map;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class CheckliteSolution {
+
 
     private final static ImmutableMap<String, Integer> prices = ImmutableMap.<String, Integer>builder()
             .put("A", 50)
@@ -16,59 +16,49 @@ public class CheckliteSolution {
             .put("D", 15)
             .build();
 
-//    private List<String> parse (String input){
-//
-//    }
-
-    class Offer {
-        private int qty;
-        private String item;
-        private Integer price;
-
-        public Offer(int qty, String item, Integer price) {
-            this.qty = qty;
-            this.item = item;
-            this.price = price;
-        }
-
-        public int getQty() {
-            return qty;
-        }
-
-        public String getItem() {
-            return item;
-        }
-
-        public Integer getPrice() {
-            return price;
-        }
+    private List<SKU> parse(String input) {
+        String item = input.replaceAll("^[0-9]", "").trim();
+        Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
+        return newArrayList(new SKU(item,quantity));
     }
 
-
     public Integer checklite(String skus) {
+        ImmutableMap<String, Offer> offerMap = initOfferMap();
+
+        List<SKU> skuList = parse(skus);
+        return skuList.stream().mapToInt(sku -> {
+            int price = 0;
+            if (offerMap.containsKey(sku.getIetm())) {
+                Offer offerForItem = offerMap.get(sku.getIetm());
+                if (offerForItem.getQty() >= sku.getQty()) {
+                    price += offerForItem.getPrice() * (sku.getQty() / offerForItem.getQty());
+                    price += offerForItem.getPrice() * (sku.getQty() % offerForItem.getQty());
+                }
+            } else if (prices.containsKey(sku.getIetm())) {
+                price = sku.getQty() * prices.get(sku.getIetm());
+            }
+            return price;
+        }).sum();
+
+//        if (offerMap.containsKey(item)) {
+//            Offer offerForItem = offerMap.get(item);
+//            if (offerForItem.getQty() >= quantity) {
+//                price += offerForItem.getPrice() * (quantity / offerForItem.getQty());
+//                price += offerForItem.getPrice() * (quantity % offerForItem.getQty());
+//            }
+//        } else if (prices.containsKey(item)) {
+//            price = quantity * prices.get(item);
+//        }
+//        return price;
+    }
+
+    private ImmutableMap<String, Offer> initOfferMap() {
         Offer o1 = new Offer(3, "A", 130);
         Offer o2 = new Offer(2, "B", 45);
 
-        ImmutableMap<String, Offer> offerMap = ImmutableMap.<String, Offer>builder()
+        return ImmutableMap.<String, Offer>builder()
                 .put("A", o1)
                 .put("B", o2)
                 .build();
-
-        String item = skus.replaceAll("^[0-9]", "").trim();
-        Integer quantity = Integer.parseInt(skus.replaceAll("[A-Z]", "").trim());
-
-        int price = 0;
-
-        if (offerMap.containsKey(item)) {
-            Offer offerForItem = offerMap.get(item);
-            if (offerForItem.getQty() >= quantity) {
-                price += offerForItem.getPrice() * (quantity / offerForItem.getQty());
-                price += offerForItem.getPrice() * (quantity % offerForItem.getQty());
-            }
-        } else if (prices.containsKey(item)) {
-            price = quantity * prices.get(item);
-        }
-        return price;
-
     }
 }
