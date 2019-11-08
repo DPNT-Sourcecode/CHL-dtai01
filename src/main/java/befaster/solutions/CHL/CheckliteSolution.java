@@ -46,9 +46,18 @@ public class CheckliteSolution {
                     SKU freeItem = skuMap.get(offer.getFreeItem());//F
                     selfFree = freeItem.getIetm().equals(sku.getIetm());
                     Integer freeItems = calculateFreeItems(sku, offer);
-                    int finalQuantityToPay= freeItem.getQty();
+                    int finalQuantityToPay = freeItem.getQty();
 
-                    if (needToReduceQuantityForSelfFree(selfFree, sku.getQty(), offer)) {
+                    if (selfFree) {
+                        int remainingQty = sku.getQty();
+                        freeItems = 0;
+                        while (remainingQty > offer.getSingleOfferQty()) { //4
+                            remainingQty -= offer.getSingleOfferQty();//2
+                            remainingQty -= 1;//1
+                            freeItems++;//1
+                        }
+                        finalQuantityToPay = freeItem.getQty() - freeItems;
+                    } else {
                         finalQuantityToPay = freeItem.getQty() - freeItems;
                     }
                     int qty = finalQuantityToPay <= 0 ? 0 : finalQuantityToPay;
