@@ -15,4 +15,11 @@ public class CheckliteSolutionTest {
         Integer price = solution.checklite("2A");
         Assert.assertEquals(new Integer(100),price);
     }
+
+    @Test
+    public void checklite() {
+
+        Integer price = solution.checklite("3A");
+        Assert.assertEquals(new Integer(100),price);
+    }
 }

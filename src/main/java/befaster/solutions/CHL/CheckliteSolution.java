@@ -16,6 +16,13 @@ public class CheckliteSolution {
                                                         .put("D",15)
                                                         .build();
 
+    private final static ImmutableMap<String,Integer> offer = ImmutableMap.<String, Integer>builder()
+                                                        .put("3A",50)
+                                                        .put("B",30)
+                                                        .put("C",20)
+                                                        .put("D",15)
+                                                        .build();
+
 
 //    private List<String> parse (String input){
 //
@@ -24,7 +31,7 @@ public class CheckliteSolution {
 
     public Integer checklite(String skus) {
         String item = skus.replaceAll("^[0-9]","").trim();
-        String trim = skus.replaceAll("^[a-z]", "").trim();
+        String trim = skus.replaceAll("[A-Z]", "").trim();
         System.out.printf(item+" "+trim);
         Integer quantity =Integer.parseInt(trim);
 
