@@ -62,6 +62,3 @@ public class CheckliteSolution {
                 .build();
     }
 }
-
-
-
