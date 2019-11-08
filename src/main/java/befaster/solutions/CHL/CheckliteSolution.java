@@ -4,16 +4,17 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
 
 public class CheckliteSolution {
 
-
-    private final static ImmutableMap<String, Integer> prices = ImmutableMap.<String, Integer>builder()
+    public final static ImmutableMap<String, Integer> prices = ImmutableMap.<String, Integer>builder()
             .put("A", 50)
             .put("B", 30)
             .put("C", 20)
@@ -26,59 +27,15 @@ public class CheckliteSolution {
 
         System.out.println(input);
         try {
-            List<SKU> skuList = parse(input);
-            return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
+            List<SKU> skuList = InputParser.parse(input);
+            Set duplicateSkuListForFreeItems =newHashSet(skuList);
+            return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku,duplicateSkuListForFreeItems)).sum();
         } catch (InvalidInputException e) {
             return -1;
         }
     }
 
-    private List<SKU> parse(String input) {
-        List<SKU> skus = newArrayList();
-        Map<String, SKU> skuMap = newHashMap();
-        List<String> chunks = separateValidChunsfItemNameAndQantity(input);
-        int i = 0;
-        while (i <= chunks.size() - 1) {
-            if (chunks.get(i).matches("[0-9]")) { //2A
-                addToSKUMap(skuMap, chunks.get(i + 1), Integer.parseInt(chunks.get(i)));
-                i = i + 2;
-            } else {//A
-                if (prices.containsKey(chunks.get(i))) {
-                    addToSKUMap(skuMap, chunks.get(i), 1);
-                    i++;
-                } else {//AxA ABCD
-                    throw new InvalidInputException("invalid input " + chunks.get(i));
-                }
-            }
-        }
-        return newArrayList(skuMap.values());
-    }
-
-    private void addToSKUMap(Map<String, SKU> skus, String item, int qty) {
-        if (skus.containsKey(item)) {
-            SKU sku = skus.get(item);
-            skus.put(item, new SKU(item, qty + sku.getQty()));
-        } else {
-            skus.put(item, new SKU(item, qty));
-        }
-    }
-
-    private List<String> separateValidChunsfItemNameAndQantity(String input) {
-        Pattern VALID_PATTERN = Pattern.compile("[0-9]+|[ABCDE]");
-        Pattern invalidPattern = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-        Pattern invalidChars = Pattern.compile("[a-z]");
-        if (invalidPattern.matcher(input).find() || invalidChars.matcher(input).find()) {
-            throw new InvalidInputException("symbol in input" + input);
-        }
-        List<String> chunks = newArrayList();
-        Matcher matcher = VALID_PATTERN.matcher(input);
-        while (matcher.find()) {
-            chunks.add(matcher.group());
-        }
-        return chunks;
-    }
-
-    private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku) {
+    private int calculatePriceForOneSKU(ImmutableMap<String, Offer> offerMap, SKU sku, Set duplicateSkuListForFreeItems) {
         int price = 0;
 
         if (offerMap.containsKey(sku.getIetm())) {
@@ -86,8 +43,12 @@ public class CheckliteSolution {
             int remainingQty = sku.getQty();//4
             for (Map.Entry<Integer, Integer> offer : offerForItem.getQuantityVsPrice().entrySet()) {
                 if (offer.getKey() <= remainingQty) {
-                    price += offer.getValue() * (remainingQty / offer.getKey());
-                    remainingQty -= offer.getKey() * (remainingQty / offer.getKey());
+                    int noOfTimeOfferCaqnBeApplied = remainingQty / offer.getKey();
+                    price += offer.getValue() * noOfTimeOfferCaqnBeApplied;
+                    remainingQty -= offer.getKey() * noOfTimeOfferCaqnBeApplied;
+                    if(offerForItem.getFreeItem()!=null && duplicateSkuListForFreeItems.contains(offerForItem.getFreeItem())){
+
+                    }
                 }
             }
             price += prices.get(sku.getIetm()) * (remainingQty);
@@ -113,3 +74,4 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
