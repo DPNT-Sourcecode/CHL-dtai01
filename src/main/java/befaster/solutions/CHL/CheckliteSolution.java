@@ -2,7 +2,6 @@ package befaster.solutions.CHL;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -37,9 +36,10 @@ public class CheckliteSolution {
         while (matcher.find()) {
             chunks.add(matcher.group());
         }
-        chunks.stream().filter(c-> StringUtils.isNumeric(c))
 
-        if (chunks.size() % 2 > 0) {
+        long quantityCount = chunks.stream().filter(c -> c.matches("[0-9]")).count();
+
+        if (chunks.size() != quantityCount*2) {
             throw new InvalidInputException("Invalid Input - " + chunks);
         }
         return chunks;
@@ -91,5 +91,6 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
