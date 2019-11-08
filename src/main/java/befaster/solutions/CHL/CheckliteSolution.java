@@ -26,9 +26,9 @@ public class CheckliteSolution {
         while (matcher.find()) {
             chunks.add( matcher.group() );
         }
-        for (int i = 0;i<chunks.size()-1;i++) {
+        for (int i = 0;i<=chunks.size()-1;i++) {
             skus.add(new SKU(chunks.get(i+1), Integer.parseInt(chunks.get(i))));
-            i = i+2;
+            i = i+1;
         }
 //        String item = input.replaceAll("^[0-9]", "").trim();
 //        Integer quantity = Integer.parseInt(input.replaceAll("[A-Z]", "").trim());
@@ -68,4 +68,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
