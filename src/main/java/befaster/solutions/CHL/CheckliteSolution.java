@@ -143,6 +143,7 @@ public class CheckliteSolution {
         Offer o2 = new Offer(2, "B", 45);
         Offer o3 = Offer.builder().forItem("E").offer(2, 80).freeItem("B").build();
         Offer o4 = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();
+        Offer o5 = Offer.builder().forItem("F").offer(2, 20).freeItem("F").build();//5H for 45, 10H for 80
 
         return ImmutableMap.<String, Offer>builder()
                 .put("A", o1)
@@ -152,6 +153,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
