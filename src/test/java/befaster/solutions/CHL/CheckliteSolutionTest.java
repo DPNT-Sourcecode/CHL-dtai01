@@ -56,7 +56,28 @@ public class CheckliteSolutionTest {
     public void checkliteNewItemOfferWithFreeItem3() {
 
         Integer price = solution.checklite("EEEEBB");
-        Assert.assertEquals(new Integer(205), price);
+        Assert.assertEquals(new Integer(160), price);
+    }
+
+    @Test
+    public void checkliteNewItemOfferWithFreeItem4() {
+
+        Integer price = solution.checklite("EEEEBB");
+        Assert.assertEquals(new Integer(160), price);
+    }
+
+    @Test
+    public void checkliteNewItemOfferWithFreeItem5() {
+
+        Integer price = solution.checklite("BEBEEE");
+        Assert.assertEquals(new Integer(160), price);
+    }
+
+    @Test
+    public void checkliteNewItemOfferWithFreeItem6() {
+
+        Integer price = solution.checklite("ABCDEABCDE");
+        Assert.assertEquals(new Integer(265), price);
     }
 
     @Test
