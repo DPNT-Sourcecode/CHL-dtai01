@@ -16,8 +16,18 @@ public class CheckliteSolution {
 
 
     public Integer checklite(String skus) {
-        String item = "";
-                Integer quantity =0;
+        String item = skus.replaceAll("^[0-9]","").trim();
+        String trim = skus.replaceAll("^[A-Z]", "").trim();
+        System.out.printf(item+" "+trim);
+        Integer quantity =Integer.parseInt(trim);
+
+        int price = 0;
+
+        if(prices.containsKey(item)){
+            price =  quantity*prices.get(item);
+        }
+        return price;
+
 
         //separate number and item name
 
@@ -25,6 +35,5 @@ public class CheckliteSolution {
         //offer count/total number = offer price
 
         // get value of item from map
-        return 0;
     }
 }
