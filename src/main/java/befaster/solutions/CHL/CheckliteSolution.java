@@ -44,9 +44,11 @@ public class CheckliteSolution {
 
     private void addToSKUMap(Map<String, SKU> skus, String item, int qty) {
         if (skus.containsKey(item)) {
-            skus.get(item).incrementQuantityBy(qty);
+            SKU sku = skus.get(item);
+            skus.put(item, new SKU(item, qty + sku.getQty()));
+        } else {
+            skus.put(item, new SKU(item, qty));
         }
-        skus.put(item, new SKU(item, qty));
     }
 
     private List<String> separateValidChunsfItemNameAndQantity(String input) {
@@ -108,4 +110,5 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
