@@ -21,4 +21,3 @@ public class SKU {
         return qty;
     }
 }
-
