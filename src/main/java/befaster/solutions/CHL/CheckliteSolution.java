@@ -1,5 +1,6 @@
 package befaster.solutions.CHL;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
@@ -36,10 +37,10 @@ public class CheckliteSolution {
     public Integer checklite(String skus) {
         ImmutableMap<String, Offer> offerMap = initOfferMap();
 
-        List<SKU> skuList = parse(skus);
-        if(skuList.isEmpty()){
+        if(Strings.isNullOrEmpty(skus)){
             return 0;
         }
+        List<SKU> skuList = parse(skus);
         return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
     }
 
@@ -74,6 +75,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
