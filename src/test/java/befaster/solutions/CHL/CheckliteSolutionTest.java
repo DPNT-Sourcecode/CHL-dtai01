@@ -71,6 +71,12 @@ public class CheckliteSolutionTest {
         Assert.assertEquals(new Integer(-1),price);
     }
 
+    @Test
+    public void checkliteForIlleagalInput2() {
+        Integer price = solution.checklite("AxA");
+        Assert.assertEquals(new Integer(-1),price);
+    }
+
 
 
 }

@@ -36,6 +36,8 @@ public class CheckliteSolution {
         while (matcher.find()) {
             chunks.add(matcher.group());
         }
+        chunks.stream().filter(c->c.)
+
         if (chunks.size() % 2 > 0) {
             throw new InvalidInputException("Invalid Input - " + chunks);
         }
