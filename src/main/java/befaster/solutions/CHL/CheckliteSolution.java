@@ -40,6 +40,7 @@ public class CheckliteSolution {
         if(Strings.isNullOrEmpty(skus)){
             return 0;
         }
+        System.out.println(skus);
         List<SKU> skuList = parse(skus);
         return skuList.stream().mapToInt(sku -> calculatePriceForOneSKU(offerMap, sku)).sum();
     }
@@ -75,6 +76,7 @@ public class CheckliteSolution {
                 .build();
     }
 }
+
 
 
 
